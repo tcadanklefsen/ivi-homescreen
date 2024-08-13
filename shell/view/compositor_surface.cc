@@ -42,7 +42,9 @@ CompositorSurface::CompositorSurface(
       m_context(nullptr),
       m_callback(nullptr) {
   // API
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
   init_api(this);
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
 
   // Surface
   m_wl.display = display->GetDisplay();
@@ -55,6 +57,7 @@ CompositorSurface::CompositorSurface(
   const auto parent_surface = window->GetBaseSurface();
 
   if (m_type == CompositorSurface::egl) {
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
     m_wl.egl_display = eglGetDisplay((NativeDisplayType)display->GetDisplay());
     m_wl.egl_window = wl_egl_window_create(m_wl.surface, width, height);
     assert(m_wl.egl_display);
@@ -71,17 +74,22 @@ CompositorSurface::CompositorSurface(
 
   // Z-Order
   if (m_z_order == CompositorSurface::PARAM_Z_ORDER_T::above) {
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
     wl_subsurface_place_above(m_subsurface, parent_surface);
   } else if (m_z_order == CompositorSurface::PARAM_Z_ORDER_T::below) {
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
     wl_subsurface_place_below(m_subsurface, parent_surface);
   }
 
   // Sync
   if (m_sync == CompositorSurface::PARAM_SYNC_T::sync) {
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
     wl_subsurface_set_sync(m_subsurface);
   } else if (m_sync == CompositorSurface::PARAM_SYNC_T::de_sync) {
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
     wl_subsurface_set_desync(m_subsurface);
   }
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
 }
 
 void CompositorSurface::Dispose(void* userdata) {

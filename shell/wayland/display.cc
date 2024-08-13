@@ -43,6 +43,7 @@ Display::Display(bool enable_cursor,
       m_cursor_theme_name(std::move(cursor_theme_name)),
       m_xkb_context(xkb_context_new(XKB_CONTEXT_NO_FLAGS)) {
   SPDLOG_TRACE("+ Display()");
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
 
   wayland_event_mask_update(ignore_wayland_event, m_wayland_event_mask);
 
@@ -55,6 +56,7 @@ Display::Display(bool enable_cursor,
     }
   }
 
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
   m_display = wl_display_connect(nullptr);
   if (m_display == nullptr) {
     spdlog::critical("Failed to connect to Wayland display. {}",
@@ -84,6 +86,7 @@ Display::Display(bool enable_cursor,
     spdlog::debug("agl_shell extension not present");
   }
 
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
   SPDLOG_TRACE("- Display()");
 }
 

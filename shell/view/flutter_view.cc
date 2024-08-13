@@ -76,6 +76,7 @@ FlutterView::FlutterView(Configuration::Config config,
       m_config.view.height.value_or(kDefaultViewHeight),
       m_config.debug_backend.value_or(false), kEglBufferSize);
 #elif BUILD_BACKEND_WAYLAND_EGL
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
   m_backend = std::make_shared<WaylandEglBackend>(
       display->GetDisplay(), m_config.view.width.value_or(kDefaultViewWidth),
       m_config.view.height.value_or(kDefaultViewHeight),
@@ -90,6 +91,7 @@ FlutterView::FlutterView(Configuration::Config config,
   SPDLOG_DEBUG("Width: {}, Height: {}",
                m_config.view.width.value_or(kDefaultViewWidth),
                m_config.view.height.value_or(kDefaultViewWidth));
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
 
   m_wayland_window = std::make_shared<WaylandWindow>(
       m_index, display, m_config.view.window_type,
@@ -110,6 +112,7 @@ FlutterView::FlutterView(Configuration::Config config,
 
   m_state->engine_state = std::make_unique<FlutterDesktopEngineState>();
   m_state->engine_state->view_controller = m_state.get();
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
 
   // Set the flutter assets folder
   std::filesystem::path path = m_config.view.bundle_path;
@@ -117,6 +120,7 @@ FlutterView::FlutterView(Configuration::Config config,
   m_state->engine_state->flutter_asset_directory = path.generic_string();
 
   SetUpCommonEngineState(m_state->engine_state.get(), this);
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
 
   // Set up the keyboard handlers
   auto internal_plugin_messenger =
@@ -128,12 +132,15 @@ FlutterView::FlutterView(Configuration::Config config,
   m_wayland_display->SetViewControllerState(
       m_state->engine_state->view_controller);
 
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
   RegisterPlugins(m_state->engine_state.get());
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
 }
 
 FlutterView::~FlutterView() = default;
 
 void FlutterView::Initialize() {
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
   std::vector<const char*> m_command_line_args_c;
   m_command_line_args_c.reserve(m_config.view.vm_args.size());
   m_command_line_args_c.push_back(m_config.app_id.c_str());
@@ -189,12 +196,15 @@ void FlutterView::Initialize() {
   m_fps.counter = 0;
 
   if (m_config.view.fps_output_console) {
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
     m_fps.output |= 0x01;
   }
   if (m_config.view.fps_output_overlay) {
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
     m_fps.output |= 0x02;
   }
   if (m_config.view.fps_output_frequency) {
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
     m_fps.period = m_config.view.fps_output_frequency;
   }
 
