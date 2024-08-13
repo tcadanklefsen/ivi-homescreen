@@ -47,9 +47,12 @@ WaylandVulkanBackend::WaylandVulkanBackend(wl_display* display,
       wl_display_(display),
       width_(width),
       height_(height) {
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
+
   VULKAN_HPP_DEFAULT_DISPATCHER.init();
   createInstance();
   setupDebugMessenger();
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
 }
 
 FlutterRendererConfig WaylandVulkanBackend::GetRenderConfig() {
@@ -123,6 +126,7 @@ WaylandVulkanBackend::~WaylandVulkanBackend() {
 }
 
 void WaylandVulkanBackend::createInstance() {
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
   auto instance_extensions = vk::enumerateInstanceExtensionProperties();
   spdlog::debug("Vulkan Instance Extensions:");
   for (const auto& l : instance_extensions.value) {
@@ -212,6 +216,7 @@ void WaylandVulkanBackend::createInstance() {
         static_cast<uint32_t>(std::size(settings)), settings};
 
     info.pNext = &layer_settings_create_info;
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
   }
 
   constexpr char VK_LAYER_KHRONOS_VALIDATION_NAME[] =
@@ -453,6 +458,7 @@ void WaylandVulkanBackend::createLogicalDevice() {
 }
 
 bool WaylandVulkanBackend::InitializeSwapchain() {
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
   if (resize_pending_) {
     resize_pending_ = false;
     d.vkDestroySwapchainKHR(device_, swapchain_, nullptr);
@@ -793,6 +799,7 @@ void WaylandVulkanBackend::CreateSurface(size_t /* index */,
                                          wl_surface* surface,
                                          int32_t /* width */,
                                          int32_t /* height */) {
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
   SPDLOG_DEBUG("CreateSurface");
   assert(instance_ != VK_NULL_HANDLE);
   assert(surface_ == VK_NULL_HANDLE);
@@ -835,6 +842,7 @@ void WaylandVulkanBackend::CreateSurface(size_t /* index */,
     spdlog::critical("Failed to create swapchain.");
     exit(EXIT_FAILURE);
   }
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
 }
 
 bool WaylandVulkanBackend::CollectBackingStore(

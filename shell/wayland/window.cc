@@ -52,6 +52,7 @@ WaylandWindow::WaylandWindow(size_t index,
       m_app_id(std::move(app_id)) {  // disable vsync
   SPDLOG_TRACE("({}) + WaylandWindow()", m_index);
 
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
   m_fps_counter = 0;
   m_base_surface = wl_compositor_create_surface(m_display->GetCompositor());
   wl_surface_add_listener(m_base_surface, &m_base_surface_listener, this);
@@ -78,6 +79,8 @@ WaylandWindow::WaylandWindow(size_t index,
   }
 #elif defined(ENABLE_XDG_CLIENT)
   {
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
+
     m_xdg_surface =
         xdg_wm_base_get_xdg_surface(m_display->GetXdgWmBase(), m_base_surface);
 
@@ -140,6 +143,7 @@ WaylandWindow::WaylandWindow(size_t index,
     if (m_wait_for_configure)
       continue;
   }
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
 
   m_backend->CreateSurface(m_index, m_base_surface, m_geometry.width,
                            m_geometry.height);

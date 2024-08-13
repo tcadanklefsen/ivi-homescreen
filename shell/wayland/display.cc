@@ -159,6 +159,7 @@ void Display::registry_handle_global(void* data,
   auto* d = static_cast<Display*>(data);
 
   SPDLOG_DEBUG("Wayland: {} version {}", interface, version);
+SPDLOG_DEBUG("ALLEN DEBUG {} {}", __LINE__, __FUNCTION__);
 
   if (strcmp(interface, wl_compositor_interface.name) == 0) {
     if (version >= 3) {
